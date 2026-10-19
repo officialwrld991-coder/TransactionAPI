@@ -1,0 +1,57 @@
+@startuml
+skinparam classAttributeIconSize 0
+class Customer { -id: Long
+-fullName: String
+-customerType: CustomerType
+-joinedDate: LocalDate }
+class Account { -id: Long
+-accountNumber: String }
+class Transaction { -id: Long
+-transactionType: TransactionType
+-amount: BigDecimal
+-discountAmount: BigDecimal
+-chargedAmount: BigDecimal
+-createdAt: LocalDateTime }
+class AuditLog { -id: Long
+-method: String
+-path: String
+-statusCode: int
+-occurredAt: LocalDateTime }
+enum CustomerType { RETAIL
+BUSINESS }
+enum TransactionType { TRANSFER
+AIRTIME }
+enum NetworkProvider { MTN
+AIRTEL
+GLO
+NINE_MOBILE }
+interface DiscountRule { +discountRate(customer, amount, monthlyCount, at): BigDecimal }
+class BusinessCustomerDiscountRule
+class RetailCustomerDiscountRule
+class LongTenureDiscountRule
+class DiscountCalculator { +calculate(customer, amount, monthlyCount, at): BigDecimal }
+interface CustomerRepository
+interface AccountRepository
+interface TransactionRepository
+interface AuditLogRepository
+class TransactionService { +transfer(request): TransactionResponse
++airtime(request): TransactionResponse
++history(accountNumber): List<TransactionResponse> }
+class TransactionController
+class AuditInterceptor
+Customer "1" -- "1..*" Account : owns
+Account "1" -- "0..*" Transaction : source
+Account "0..1" -- "0..*" Transaction : destination
+Customer --> CustomerType
+Transaction --> TransactionType
+Transaction --> NetworkProvider
+DiscountRule <|.. BusinessCustomerDiscountRule
+DiscountRule <|.. RetailCustomerDiscountRule
+DiscountRule <|.. LongTenureDiscountRule
+DiscountCalculator o-- "1..*" DiscountRule
+TransactionService --> AccountRepository
+TransactionService --> TransactionRepository
+TransactionService --> DiscountCalculator
+TransactionController --> TransactionService
+AuditInterceptor --> AuditLogRepository
+@enduml

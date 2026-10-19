@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+actor Customer
+actor "Retail Customer" as Retail
+actor "Business Customer" as Business
+Retail --|> Customer
+Business --|> Customer
+rectangle "Bank Transaction API" {
+ usecase "Do Transfer" as Transfer
+ usecase "Buy Airtime" as Airtime
+ usecase "View Transaction History" as History
+ usecase "Apply Discount" as Discount
+ usecase "Record Audit" as Audit
+}
+Customer --> Transfer
+Customer --> Airtime
+Customer --> History
+Transfer .> Discount : <<include>>
+Transfer .> Audit : <<include>>
+Airtime .> Audit : <<include>>
+History .> Audit : <<include>>
+note right of Discount : Internal system behaviour;
+not a direct customer action.
+@enduml
