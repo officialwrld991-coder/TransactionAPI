@@ -11,11 +11,12 @@ import com.example.TransactionAPI.dtos.responses.AirtimeResponse;
 import com.example.TransactionAPI.dtos.responses.TransferResponse;
 import com.example.TransactionAPI.exceptions.AirtimeException;
 import com.example.TransactionAPI.exceptions.TransferException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
+@Transactional
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
