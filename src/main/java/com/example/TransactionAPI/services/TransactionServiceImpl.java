@@ -11,10 +11,12 @@ import com.example.TransactionAPI.dtos.responses.AirtimeResponse;
 import com.example.TransactionAPI.dtos.responses.TransferResponse;
 import com.example.TransactionAPI.exceptions.AirtimeException;
 import com.example.TransactionAPI.exceptions.TransferException;
+import com.example.TransactionAPI.data.models.TransactionItem;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Transactional
 @Service
@@ -99,7 +101,7 @@ public class TransactionServiceImpl implements TransactionService {
         throw new AirtimeException("Amount is required");
     }
 
-    if (airtimeRequest.getAirtimeAmount().compareTo(BigDecimal.ZERO) <= 0) {                          // ...then check (0.004 becomes 0.00 and is rejected)
+    if (airtimeRequest.getAirtimeAmount().compareTo(BigDecimal.ZERO) <= 0) {
         throw new AirtimeException("Amount must be greater than 0");
     }
 
@@ -132,9 +134,11 @@ public class TransactionServiceImpl implements TransactionService {
     return response;
 }
 
-
     @Override
-    public void transactions() {
-
+    public List<TransactionItem> transactions(String accountNumber) {
+        return List.of();
     }
+
+
+
 }

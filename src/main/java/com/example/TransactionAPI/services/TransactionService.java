@@ -4,9 +4,12 @@ import com.example.TransactionAPI.dtos.requests.AirtimeRequest;
 import com.example.TransactionAPI.dtos.requests.TransferRequest;
 import com.example.TransactionAPI.dtos.responses.AirtimeResponse;
 import com.example.TransactionAPI.dtos.responses.TransferResponse;
+import com.example.TransactionAPI.data.models.TransactionItem;
+
+import java.util.List;
 
 public interface TransactionService {
     TransferResponse transfer (TransferRequest transferRequest);
     AirtimeResponse airtime (AirtimeRequest airtimeRequest);
-    void transactions();
+    List<TransactionItem> transactions(String accountNumber);
 }
