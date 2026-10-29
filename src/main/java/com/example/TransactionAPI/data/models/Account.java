@@ -14,7 +14,7 @@ public class Account {
 
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
- private String id;
+ private long id;
 
  @Column(nullable = false, unique = true, length = 10)
  private String accountNumber;
@@ -22,8 +22,11 @@ public class Account {
  @Column(nullable = false, precision = 19, scale = 2)
  private BigDecimal balance = BigDecimal.ZERO;
 
- @ManyToOne(optional = false)
- @JoinColumn(name = "customer_id")
- private Customer customer;
+ @Column(nullable = false)
+ private String name;
+
+// @ManyToOne(optional = false)
+// @JoinColumn(name = "customer_id")
+// private Customer customer;
 
 }

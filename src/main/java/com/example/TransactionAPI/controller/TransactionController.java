@@ -1,8 +1,10 @@
 package com.example.TransactionAPI.controller;
 
 import com.example.TransactionAPI.dtos.requests.AirtimeRequest;
+import com.example.TransactionAPI.dtos.requests.CreateRequest;
 import com.example.TransactionAPI.dtos.requests.TransferRequest;
 import com.example.TransactionAPI.exceptions.AirtimeException;
+import com.example.TransactionAPI.exceptions.CreateException;
 import com.example.TransactionAPI.exceptions.TransferException;
 import com.example.TransactionAPI.services.TransactionService;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,17 @@ public class TransactionController {
 
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
+    }
+
+    @PostMapping("/createAccount")
+    public ResponseEntity<?> createAccount (@RequestBody CreateRequest request) {
+        try {
+            return ResponseEntity.ok(transactionService.createAccount(request));
+        } catch (CreateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Something went wrong");
+        }
     }
 
     @PostMapping("/transfer")

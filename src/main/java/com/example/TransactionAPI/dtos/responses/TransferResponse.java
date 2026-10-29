@@ -11,6 +11,6 @@ public class TransferResponse {
     private String senderAccount;
     private BigDecimal amount;
     private String recipientAccount;
-    private String transactionId;
+    private long transactionId;
     private LocalDateTime transactionDate;
 }

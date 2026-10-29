@@ -16,7 +16,7 @@ public class AirtimeTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private long id;
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
